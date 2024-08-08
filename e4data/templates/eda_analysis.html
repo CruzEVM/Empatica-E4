@@ -1,0 +1,28 @@
+<div class="card">
+    <h2>Análisis de EDA</h2>
+    {% if promedio_eda %}
+    <p>Promedio: {{ promedio_eda }}</p>
+    <p>Mediana: {{ mediana_eda }}</p>
+    <p>Máximo: {{ max_eda }}</p>
+    <p>Mínimo: {{ min_eda }}</p>
+    <p>{{ resumen_eda }}</p>
+    <canvas id="graficoEDA"></canvas>
+    <script>
+        var ctx = document.getElementById('graficoEDA').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Array.from({ length: {{ eda_data|length }} }, (_, i) => i + 1),
+                datasets: [{
+                    label: 'EDA',
+                    data: {{ eda_data }},
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    fill: false
+                }]
+            }
+        });
+    </script>
+    {% else %}
+    <p>No se ha proporcionado un archivo de EDA.</p>
+    {% endif %}
+</div>

@@ -1,0 +1,28 @@
+<div class="card">
+    <h2>Análisis de BVP</h2>
+    {% if promedio_bvp %}
+    <p>Promedio: {{ promedio_bvp }}</p>
+    <p>Mediana: {{ mediana_bvp }}</p>
+    <p>Máximo: {{ max_bvp }}</p>
+    <p>Mínimo: {{ min_bvp }}</p>
+    <p>{{ resumen_bvp }}</p>
+    <canvas id="graficoBVP"></canvas>
+    <script>
+        var ctx = document.getElementById('graficoBVP').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Array.from({ length: {{ bvp_data|length }} }, (_, i) => i + 1),
+                datasets: [{
+                    label: 'BVP',
+                    data: {{ bvp_data }},
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    fill: false
+                }]
+            }
+        });
+    </script>
+    {% else %}
+    <p>No se ha proporcionado un archivo de BVP.</p>
+    {% endif %}
+</div>

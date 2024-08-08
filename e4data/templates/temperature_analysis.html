@@ -1,0 +1,46 @@
+<div class="card">
+    <h2>Análisis de Temperatura</h2>
+    <p>Promedio de Temperatura: {{ promedio_temp }} °C</p>
+    <p>Mediana de Temperatura: {{ mediana_temp }} °C</p>
+    <p>Temperatura Máxima: {{ max_temp }} °C</p>
+    <p>Temperatura Mínima: {{ min_temp }} °C</p>
+
+    <p>Tu temperatura promedio está en un rango {{ 'normal' if 36.1 <= promedio_temp <= 37.2 else 'anormal' }}.</p>
+
+    <canvas id="graficoTemperatura" width="400" height="200"></canvas>
+    <script>
+        var ctx = document.getElementById('graficoTemperatura').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Array.from({ length: {{ temperaturas|length }} }, (_, i) => i + 1),
+                datasets: [{
+                    label: 'Temperatura (°C)',
+                    data: {{ temperaturas }},
+                    borderColor: 'rgba(255, 99, 132, 1)',
+                    backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                    borderWidth: 2,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                scales: {
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Índice'
+                        }
+                    },
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Temperatura (°C)'
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</div>

@@ -1,0 +1,28 @@
+<div class="card">
+    <h2>Análisis de IBI</h2>
+    {% if promedio_ibi %}
+    <p>Promedio: {{ promedio_ibi }}</p>
+    <p>Mediana: {{ mediana_ibi }}</p>
+    <p>Máximo: {{ max_ibi }}</p>
+    <p>Mínimo: {{ min_ibi }}</p>
+    <p>{{ resumen_ibi }}</p>
+    <canvas id="graficoIBI"></canvas>
+    <script>
+        var ctx = document.getElementById('graficoIBI').getContext('2d');
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: Array.from({ length: {{ ibi_data|length }} }, (_, i) => i + 1),
+                datasets: [{
+                    label: 'IBI',
+                    data: {{ ibi_data }},
+                    borderColor: 'rgba(255, 206, 86, 1)',
+                    fill: false
+                }]
+            }
+        });
+    </script>
+    {% else %}
+    <p>No se ha proporcionado un archivo de IBI.</p>
+    {% endif %}
+</div>

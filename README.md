@@ -1,2 +1,2 @@
-# Empatica-E4
- Residencia Universitaria
+# EmpaticaE4
+Análisis de datos de pulsera.
